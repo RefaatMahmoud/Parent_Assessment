@@ -1,74 +1,148 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+### Challenge Idea
+We have two providers collect data from them in json files we need to read and make some filter operations on them to get the result
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+You can check the json files inside jsons folder
+- `DataProviderX` data is stored in [DataProviderX.json]
+- `DataProviderY` data is stored in [DataProviderX.json]
+DataProviderX schema is
+```json
+{
+  parentAmount:200,
+  Currency:'USD',
+  parentEmail:'parent1@parent.eu',
+  statusCode:1,
+  registerationDate: '2018-11-30',
+  parentIdentification: 'd3d29d70-1d25-11e3-8591-034165a3a613'
+}
+```
+we have three status for `DataProviderX`
+- `authorised` which will have statusCode `1`
+- `decline` which will have statusCode `2`
+- `refunded` which will have statusCode `3`
 
-## About Laravel
+DataProviderY schema is
+```json
+{
+  balance:300,
+  currency:'AED',
+  email:'parent2@parent.eu',
+  status:100,
+  created_at: '22/12/2018',
+  id: '4fc2-a8d1'
+}
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Acceptance Criteria
+Implement this API /api/v1/users
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- it should list all users which combine transactaions from all the available providerDataProviderX and DataProviderY )
+- it should be able to filter resullt by payment providers for example `/api/v1/users?provider=DataProviderX` it should return users from DataProviderX
+- it should be able to filter result three statusCode (authorised, decline, refunded) for example `/api/v1/users?statusCode=authorised` 
+- it should return all users from all providers that have status code authorised
+- it should be able to filer by amount range for example `/api/v1/users?balanceMin=10&balanceMax=100`
+- it should return result between 10 and 100 including 10 and 100
+- it should be able to filer by currency
+- it should be able to combine all this filter together
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### DataProviderX.json
+```json
+{
+  "users":[
+    {
+      "parentAmount":280,
+      "Currency":"EUR",
+      "parentEmail":"parent1@parent.eu",
+      "statusCode":1,
+      "registerationDate": "2018-11-30",
+      "parentIdentification": "d3d29d70-1d25-11e3-8591-034165a3a613"
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    },
+    {
+      "parentAmount":200.5,
+      "Currency":"USD",
+      "parentEmail":"parent2@parent.eu",
+      "statusCode":2,
+      "registerationDate": "2018-01-01",
+      "parentIdentification": "e3rffr-1d25-dddw-8591-034165a3a613"
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    },
+    {
+      "parentAmount":500,
+      "Currency":"EGP",
+      "parentEmail":"parent3@parent.eu",
+      "statusCode":1,
+      "registerationDate": "2018-02-27",
+      "parentIdentification": "4erert4e-2www-wddc-8591-034165a3a613"
 
-## Laravel Sponsors
+    },
+    {
+      "parentAmount":400,
+      "Currency":"AED",
+      "parentEmail":"parent4@parent.eu",
+      "statusCode":1,
+      "registerationDate": "2019-09-07",
+      "parentIdentification": "d3dwwd70-1d25-11e3-8591-034165a3a613"
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+    },
+    {
+      "parentAmount":200,
+      "Currency":"EUR",
+      "parentEmail":"parent5@parent.eu",
+      "statusCode":1,
+      "registerationDate": "2018-10-30",
+      "parentIdentification": "d3d29d40-1d25-11e3-8591-034165a3a6133"
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+    }
+  ]
+}
+```
 
-## Contributing
+### DataProviderY.json
+```json
+{
+  "users": [
+    {
+      "balance": 354.5,
+      "currency": "AED",
+      "email": "parent100@parent.eu",
+      "status": 100,
+      "created_at": "22/12/2018",
+      "id": "3fc2-a8d1"
+    },
+    {
+      "balance": 1000,
+      "currency": "USD",
+      "email": "parent200@parent.eu",
+      "status": 100,
+      "created_at": "22/12/2018",
+      "id": "4fc2-a8d1"
+    },
+    {
+      "balance": 560,
+      "currency": "AED",
+      "email": "parent300@parent.eu",
+      "status": 200,
+      "created_at": "22/12/2018",
+      "id": "rrc2-a8d1"
+    },
+    {
+      "balance": 222,
+      "currency": "USD",
+      "email": "parent400@parent.eu",
+      "status": 300,
+      "created_at": "11/11/2018",
+      "id": "sfc2-e8d1"
+    },
+    {
+      "balance": 130,
+      "currency": "EUR",
+      "email": "parent500@parent.eu",
+      "status": 200,
+      "created_at": "02/08/2019",
+      "id": "4fc3-a8d2"
+    }
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+  ]
+}
+```
