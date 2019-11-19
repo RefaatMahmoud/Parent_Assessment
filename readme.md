@@ -1,3 +1,10 @@
+### Code Quality
+- Repository pattern
+- Single Responsibility Pattern
+- Enums Abstraction 
+- Unit Testing
+
+
 ### Challenge Idea
 We have two providers collect data from them in json files we need to read and make some filter operations on them to get the result
 
