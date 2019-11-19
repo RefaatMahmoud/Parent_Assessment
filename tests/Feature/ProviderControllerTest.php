@@ -22,7 +22,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users');
         $response->assertStatus(200);
-        $data = $this->provider_repository->get_users([]);
+        $data = $this->provider_repository->all([]);
         $response->assertJson([
             'users' => $data
         ]);
@@ -32,7 +32,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users?provider=' . DataProviderEnum::DataProviderX);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'provider' => DataProviderEnum::DataProviderX
         ]);
 
@@ -45,7 +45,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users?provider=' . DataProviderEnum::DataProviderY);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'provider' => DataProviderEnum::DataProviderY
         ]);
         $response->assertJson([
@@ -57,7 +57,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users?statusCode=' . StatusProviderEnum::AUTHORIZED);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'statusCode' => StatusProviderEnum::AUTHORIZED
         ]);
         $response->assertJson([
@@ -69,7 +69,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users?statusCode=' . StatusProviderEnum::DECLINE);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'statusCode' => StatusProviderEnum::DECLINE
         ]);
         $response->assertJson([
@@ -81,7 +81,7 @@ class ProviderControllerTest extends TestCase
     {
         $response = $this->get('/api/v1/users?statusCode=' . StatusProviderEnum::REFUNDED);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'statusCode' => StatusProviderEnum::REFUNDED
         ]);
         $response->assertJson([
@@ -94,7 +94,7 @@ class ProviderControllerTest extends TestCase
         $currency = 'AED';
         $response = $this->get('/api/v1/users?currency=' . $currency);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'currency' => $currency
         ]);
         $response->assertJson([
@@ -108,7 +108,7 @@ class ProviderControllerTest extends TestCase
         $balanceMax = 222;
         $response = $this->get('/api/v1/users?balanceMin=' . $balanceMin . '&balanceMax=' . $balanceMax);
         $response->assertStatus(200);
-        $this->data = $this->provider_repository->get_users([
+        $this->data = $this->provider_repository->all([
             'balanceMin' => $balanceMin,
             'balanceMax' => $balanceMax,
         ]);
