@@ -18,7 +18,7 @@ class ProviderController extends Controller
     public function get_users(Request $request)
     {
         try {
-            $data = $this->provider_repository->get_users($request->all());
+            $data = $this->provider_repository->all($request->all());
             return response()->json([
                 'users' => $data
             ], Response::HTTP_OK);

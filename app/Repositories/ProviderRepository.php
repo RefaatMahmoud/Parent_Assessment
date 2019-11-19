@@ -6,10 +6,10 @@ use App\Enums\DataProviderEnum;
 use App\Enums\StatusProviderEnum;
 use Illuminate\Support\Facades\Storage;
 
-class ProviderRepository
+class ProviderRepository implements RepositoryInterface
 {
 
-    public function get_users($data)
+    public function all($data)
     {
         $data_x = json_decode(Storage::disk('local')->get('jsons/DataProviderX.json'), true);
         $data_y = json_decode(Storage::disk('local')->get('jsons/DataProviderY.json'), true);

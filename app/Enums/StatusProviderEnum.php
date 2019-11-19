@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class StatusProviderEnum
+abstract class StatusProviderEnum
 {
     const AUTHORIZED      = 'authorized';
     const DECLINE         = 'decline';
