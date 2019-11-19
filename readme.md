@@ -4,6 +4,13 @@
 - Enums Abstraction 
 - Unit Testing
 
+### Installation steps
+1. clone project `git clone https://github.com/RefaatMahmoud/Parent_Assessment.git` 
+2. cd to your project and run `composer update`
+3. create `.env` file as `.en.example`
+4. generate key `php artisan key:generate`
+5. to run server `php artisan serve`
+6. to run unit test `./vendor/bin/phpunit`
 
 ### Challenge Idea
 We have two providers collect data from them in json files we need to read and make some filter operations on them to get the result
